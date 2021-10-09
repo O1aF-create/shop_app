@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/product_detail_screen.dart';
-import '../providers/product.dart';
 import '../providers/cart.dart';
 import '../providers/auth.dart';
+import '../providers/product.dart';
+import '../screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
   @override
@@ -22,9 +22,15 @@ class ProductItem extends StatelessWidget {
               arguments: product.id,
             );
           },
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
+          child: Hero(
+            tag: product.id,
+            child: FadeInImage(
+              placeholder: AssetImage('assets/images/product-placeholder.png'),
+              image: NetworkImage(
+                product.imageUrl,
+              ),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         footer: GridTileBar(
